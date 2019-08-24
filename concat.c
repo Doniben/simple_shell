@@ -1,3 +1,5 @@
+#include "header.h"
+
 /**
  * *_strcat - Concat two strings
  * @dest: The string that receives
