@@ -1,6 +1,40 @@
 #include "header.h"
 
 /**
+ * concat_two_std - concatenate two strings
+ *
+ * @argv: string of the argument
+ * @ph: string of the route of PATH
+ *
+ * Return: string concatenated
+ */
+char *concat_two_std(char *argv, char *ph)
+{
+	int std_1 = 0;
+	int std_2 = 0;
+	char *std = NULL;
+	int i = 0;
+	int j = 0;
+
+	std_1 = _strlen(argv);
+	std_2 = _strlen(ph);
+
+	std = malloc((std_1) + (std_2) * sizeof(char) + 2);
+	if (!std)
+	{
+		free(std);
+		return (NULL);
+	}
+	std = ph;
+	while (std != NULL)
+		i++;
+	std[i] = '/';
+	std = argv;
+
+	return (std);
+}
+
+/**
  * path_av - comunicate the route with the command
  *
  * @argv: argument
@@ -10,22 +44,24 @@
 char **path_av(char **argv)
 {
 	int i = 0;
-	int j = 0;
 	char tok = 0;
-	char ph = 0;
-
+	char **ph = NULL;
+	char std_conc = 0;
+	struct stat *veri_stat = NULL;
+	int stat_n = 0;
 
 	ph = getenv("PATH");
-	tok = strtok(ph , ":");
-	
-	while (argv[0] == ph[i])
+	tok = strtok(ph, ":");
+
+	while (tok != NULL)
 	{
-		while (tok != NULL)
+		std_conc = concat_two_std(*argv, *ph);
+		stat(std_conc, veri_stat);
+		if (stat == 0)
+			return (std_conc);
+		else if (stat != 0)
 			i++;
-		while (argv != NULL)
-				j++;
-		tok = argv;
-		strtok(NULL, ":");
+		i++;
 	}
 	return (argv);
 }
@@ -114,29 +150,4 @@ char *read_line(void)
 	}
 
 	return (line);
-}
-
-/**
- * main - Entry point
- *
- * Return: 0 to success
- */
-int main(void)
-{
-	char *line;
-	char **argv;
-	char **path;
-	int flag = 0;
-
-	while (flag != EOF)
-	{
-		line = read_line();
-		argv = parsing_argv(line);
-		path = path_av(argv);
-		exec_process(path);
-		free(line);
-		free(argv);
-
-	}
-	return (0);
 }
