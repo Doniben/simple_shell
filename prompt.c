@@ -1,69 +1,36 @@
 #include "header.h"
 
 /**
- * concat_two_std - concatenate two strings
- *
- * @argv: string of the argument
- * @ph: string of the route of PATH
- *
- * Return: string concatenated
- */
-char *concat_two_std(char *argv, char *ph)
-{
-	int std_1 = 0;
-	int std_2 = 0;
-	char *std = NULL;
-	int i = 0;
-	int j = 0;
-
-	std_1 = _strlen(argv);
-	std_2 = _strlen(ph);
-
-	std = malloc((std_1) + (std_2) * sizeof(char) + 2);
-	if (!std)
-	{
-		free(std);
-		return (NULL);
-	}
-	std = ph;
-	while (std != NULL)
-		i++;
-	std[i] = '/';
-	std = argv;
-
-	return (std);
-}
-
-/**
  * path_av - comunicate the route with the command
  *
  * @argv: argument
  *
  * Return: char double pointer to execute
  */
-char **path_av(char **argv)
+char **path_av(char **arg)
 {
 	int i = 0;
-	char tok = 0;
-	char **ph = NULL;
-	char std_conc = 0;
+	char *tok = NULL;
+	char *ph = NULL;
+	char *std_conc;
 	struct stat *veri_stat = NULL;
-	int stat_n = 0;
+	char **arg_1 = NULL;
 
 	ph = getenv("PATH");
 	tok = strtok(ph, ":");
+	arg_1 = &std_conc;
 
 	while (tok != NULL)
 	{
-		std_conc = concat_two_std(*argv, *ph);
+		std_conc = _strcat(ph, arg[0]);
 		stat(std_conc, veri_stat);
-		if (stat == 0)
-			return (std_conc);
-		else if (stat != 0)
+		if (veri_stat == NULL)
+			return (arg_1);
+		else if (veri_stat != NULL)
 			i++;
 		i++;
 	}
-	return (argv);
+	return (arg_1);
 }
 
 /**
@@ -72,16 +39,21 @@ char **path_av(char **argv)
  *
  * Return: void
  */
-void exec_process(char **argv)
+void exec_process(char **path)
 {
 	pid_t pid = 0;
 	int status = 0;
+	int ver_exe;
 
 	pid = fork();
 	if (pid == 0)
-		execve(argv[0], argv, NULL);
+	{
+		ver_exe = execve(path[0], path, NULL);
+		if (ver_exe == -1)
+			perror("hsh: Error with execution doni");
+	}
 	else if (pid < 0)
-		perror("Error");
+		perror("hsh: Command doesn't exist");
 	else
 		wait(&status);
 }
@@ -93,7 +65,7 @@ void exec_process(char **argv)
  *
  * Return: char double pointer of the token
  */
-char **parsing_argv(char *line)
+char **parsing_arg(char *line)
 {
 	int bufsize = BUFSIZE;
 	int pos = 0;
@@ -112,7 +84,7 @@ char **parsing_argv(char *line)
 	{
 		tokens[pos] = token;
 		pos++;
-		if (pos >= bufsize)
+		if (pos >=  bufsize)
 		{
 			bufsize += BUFSIZE;
 			tokens = realloc(tokens, bufsize * sizeof(char *));
@@ -135,11 +107,17 @@ char **parsing_argv(char *line)
  */
 char *read_line(void)
 {
+	char prompt[3] = "$ ";
 	char *line = NULL;
 	size_t bufsize = 0;
 	ssize_t characters = 0;
+	int i = 0;
 
-	printf("$ ");
+	while (prompt[i] != '\0')
+	{
+		_putchar(prompt[i]);
+		i++;
+	}
 	characters = getline(&line, &bufsize, stdin);
 
 	if (characters == -1)
@@ -148,6 +126,5 @@ char *read_line(void)
 		free(line);
 		exit(-1);
 	}
-
 	return (line);
 }

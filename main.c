@@ -7,19 +7,19 @@
  */
 int main(void)
 {
-	char *line;
-	char **argv;
-	char **path;
+	char *line = NULL;
+	char **arg = NULL;
+	char **path = NULL;
 	int flag = 0;
 
 	while (flag != EOF)
 	{
 		line = read_line();
-		argv = parsing_argv(line);
-		path = path_av(argv);
+		arg = parsing_arg(line);
+		path = path_av(arg);
 		exec_process(path);
 		free(line);
-		free(argv);
+		free(arg);
 		free(path);
 	}
 	return (0);
