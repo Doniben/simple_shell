@@ -14,11 +14,13 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 
-void exec_process(char **argv);
-char **path_av(char **argv);
-char **parsing_argv(char *line);
+void exec_process(char **path);
+char **path_av(char **arg);
+char **parsing_arg(char *line);
 char *read_line(void);
 
 int _strlen(char *s);
+char *_strcat(char *dest, char *src);
+int _putchar(char c);
 
 #endif
