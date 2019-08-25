@@ -10,27 +10,42 @@
 char **path_av(char **arg)
 {
 	int i = 0;
-	char *tok = NULL;
-	char *ph = NULL;
-	char *std_conc;
-	struct stat *veri_stat = NULL;
-	char **arg_1 = NULL;
+        int j = 0;
+        int counter = 0;
+        char **tmp = 0;
+        char **token = NULL;
+        char **p = NULL;
+	char *ruta = NULL;
+        char *ph = NULL;
+	struct stat *buf = NULL;
 
-	ph = getenv("PATH");
-	tok = strtok(ph, ":");
-	arg_1 = &std_conc;
+        p = (char**)malloc(sizeof(char*) * (i));
+        ph = getenv ("PATH");
+        while (ph[counter] != NULL)
+        {
+                if (ph == ':')
+                        counter++;
+        }
+	counter++;
 
-	while (tok != NULL)
+	token = strtok(ph, ':');
+	while (token[i] != NULL)
 	{
-		std_conc = _strcat(ph, arg[0]);
-		stat(std_conc, veri_stat);
-		if (veri_stat == NULL)
-			return (arg_1);
-		else if (veri_stat != NULL)
+		while (token[i][j] != NULL)
+		{
+			tmp += token;
+			j++;
+			tmp[i][j] = '/';
+			ruta = _strcat(tmp, arg[0]);
+			
+			if (stat(ruta, buf) == 0)
+				return (p);
+			else
+				tmp = 0;
 			i++;
-		i++;
+		}
 	}
-	return (arg_1);
+	return (p);
 }
 
 /**
