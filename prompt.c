@@ -1,54 +1,6 @@
 #include "header.h"
 
 /**
- * path_av - comunicate the route with the command
- *
- * @argv: argument
- *
- * Return: char double pointer to execute
- */
-char **path_av(char **arg)
-{
-	int i = 0;
-        int j = 0;
-        int counter = 0;
-        char **tmp = 0;
-        char **token = NULL;
-        char **p = NULL;
-	char *ruta = NULL;
-        char *ph = NULL;
-	struct stat *buf = NULL;
-
-        p = (char**)malloc(sizeof(char*) * (i));
-        ph = getenv ("PATH");
-        while (ph[counter] != NULL)
-        {
-                if (ph == ':')
-                        counter++;
-        }
-	counter++;
-
-	token = strtok(ph, ':');
-	while (token[i] != NULL)
-	{
-		while (token[i][j] != NULL)
-		{
-			tmp += token;
-			j++;
-			tmp[i][j] = '/';
-			ruta = _strcat(tmp, arg[0]);
-			
-			if (stat(ruta, buf) == 0)
-				return (p);
-			else
-				tmp = 0;
-			i++;
-		}
-	}
-	return (p);
-}
-
-/**
  * exec_process - execution of process
  * @argv: argument
  *
