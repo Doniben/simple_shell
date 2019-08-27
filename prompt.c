@@ -1,39 +1,6 @@
 #include "header.h"
 
 /**
- * path_av - comunicate the route with the command
- *
- * @argv: argument
- *
- * Return: char double pointer to execute
- */
-char **path_av(char **arg)
-{
-	int i = 0;
-	char *tok = NULL;
-	char *ph = NULL;
-	char *std_conc;
-	struct stat *veri_stat = NULL;
-	char **arg_1 = NULL;
-
-	ph = getenv("PATH");
-	tok = strtok(ph, ":");
-	arg_1 = &std_conc;
-
-	while (tok != NULL)
-	{
-		std_conc = _strcat(ph, arg[0]);
-		stat(std_conc, veri_stat);
-		if (veri_stat == NULL)
-			return (arg_1);
-		else if (veri_stat != NULL)
-			i++;
-		i++;
-	}
-	return (arg_1);
-}
-
-/**
  * exec_process - execution of process
  * @argv: argument
  *
