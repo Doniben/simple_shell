@@ -1,3 +1,5 @@
+#include "header.h"
+
 /**
  * environment - function that prints the environmental variables
  *
