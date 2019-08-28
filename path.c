@@ -110,6 +110,6 @@ char **conc_slash(char **p)
 		p[len] = "/";
                 i++;
         }
-
-	return (p);
+	printf("%")
+	return (p[len]);
 }
