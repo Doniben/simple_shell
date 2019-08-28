@@ -1,6 +1,27 @@
 #include "header.h"
 
 /**
+ * _strcmp - compares two strings
+ * @s1: string 1
+ * @s2: string 2
+ * Return: difference between the compare
+ */
+int _strcmp(char *s1, char *s2)
+{
+	int n = 0;
+
+	while (s1[n] && s2[n])
+	{
+		if (s1[n] != s2[n])
+		{
+			return (s1[n] - s2[n]);
+		}
+		n++;
+	}
+	return (s1[n] - s2[n]);
+}
+
+/**
  * _strdup - a function that returns a pointer to/
  * a newly allocated space in memory, which contains/
  * a copy of the string given as a parameter.
@@ -53,29 +74,28 @@ int _strlen(char *s)
 
 char *_strcat(char *dest, char *src)
 {
-        int q = 0;
-        int x = 0;
-        char *concat = NULL;
+	int q = 0;
+	int x = 0;
+	char *concat = NULL;
 
-        while (dest[q])
-                q++;
-        dest[q] = '/';
-
-        while (src[x])
-        {
-                dest[q] = src[x];
-                x++;
-                q++;
-        }
-
-        concat = malloc((q + 2) * sizeof(char));
-        if (!concat)
-        {
+	q = _strlen(dest);
+	dest[q] = '/';
+	q++;
+	while (src[x])
+	{
+		dest[q] = src[x];
+		x++;
+		q++;
+	}
+	dest[q] = '\0';
+	concat = malloc((q + 2) * sizeof(char));
+	if (!concat)
+	{
 		free(concat);
-                return (NULL);
-        }
-        concat = dest;
-        return (concat);
+		return (NULL);
+	}
+	concat = dest;
+	return (concat);
 }
 
 /**

@@ -10,7 +10,7 @@
 char **path_av(char **arg)
 {
         int i = 0, counter = 0;
-        char **p_1, **p = NULL;
+        char **p = NULL;
         char *ruta = NULL;
         char *ph = NULL;
         struct stat buf;
@@ -26,11 +26,7 @@ char **path_av(char **arg)
                 free(p);
                 return (NULL);
         }
-	p_1 = ph_to_dp(ph);
-	p = conc_slash(p_1);
-
-	printf("%s\n", p[0]);
-	printf("%s\n", p_1[0]);
+	p = ph_to_dp(ph);
 
 	while (p[i])
 	{
