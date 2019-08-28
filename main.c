@@ -11,7 +11,6 @@ int main(void)
 	char w_exit[5] = "exit";
 	char *line = NULL;
 	char **arg = NULL;
-	char **path = NULL;
 	int flag = 0;
 
 	while (flag != EOF)
@@ -28,11 +27,9 @@ int main(void)
 			exit(1);
 			continue;
 		}
-		path = path_av(arg);
-		exec_process(path);
+		exec_process(arg);
 		free(line);
 		free(arg);
-		free(path);
 	}
 	return (0);
 }
