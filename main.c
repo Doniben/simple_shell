@@ -1,7 +1,7 @@
 #include "header.h"
 
 /**
- * main - Entry point
+ * main - entry point
  *
  * Return: 0 to success
  */
@@ -12,22 +12,32 @@ int main(void)
 	char *line = NULL;
 	char **arg = NULL;
 	int flag = 0;
+	int exec = 0;
+
+	signal(SIGINT, salto_linea);
 
 	while (flag != EOF)
 	{
 		line = read_line();
+
 		arg = parsing_arg(line);
 		if (_strcmp(w_env, arg[0]) == 0)
 		{
-			_environment();
+			free(line);
+			free(arg);
+			_enviro();
 			continue;
 		}
 		else if (_strcmp(w_exit, arg[0]) == 0)
 		{
-			exit(1);
+			free(line);
+			free(arg);
+			exit(0);
 			continue;
 		}
-		exec_process(arg);
+		exec = exec_process(arg, line);
+		if (exec == -1)
+			continue;
 		free(line);
 		free(arg);
 	}

@@ -16,7 +16,7 @@
 
 extern char **environ;
 
-void exec_process(char **path);
+void exec_process(char **path, char *line);
 char **parsing_arg(char *line);
 char *read_line(void);
 
@@ -25,11 +25,12 @@ char **ph_to_dp(char *token_cp);
 int number_of_dir(char *ph);
 char **conc_slash(char **p);
 
-void _environment(void);
+void _enviro(void);
+void salto_linea(void);
 void _ext(void);
 
-int _strcmp(char *s1, char *s2);
 char *_strdup(char *str);
+int _strcmp(char *s1, char *s2);
 int _strlen(char *s);
 char *_strcat(char *dest, char *src);
 int _putchar(char c);

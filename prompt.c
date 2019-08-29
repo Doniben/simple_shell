@@ -2,11 +2,11 @@
 
 /**
  * exec_process - execution of process
- * @argv: argument
- *
+ * @path: argument tokenized
+ * @line: argument without tokenize
  * Return: void
  */
-void exec_process(char **path)
+void exec_process(char **path, char *line)
 {
 	pid_t pid = 0;
 	int status = 0;
@@ -17,16 +17,19 @@ void exec_process(char **path)
 	{
 		ver_exe = execve(path[0], path, NULL);
 		if (ver_exe == -1)
-			perror("hsh: Error with execution doni");
+			perror("hsh");
 	}
 	else if (pid < 0)
-		perror("hsh: Command doesn't exist");
+	{
+		free(line);
+		perror("hsh");
+	}
 	else
 		wait(&status);
 }
 
 /**
- * parsing_argv - tokenize and analize the argument
+ * parsing_arg - tokenize and analize the argument
  *
  * @line: argument without tokenize
  *
@@ -43,7 +46,6 @@ char **parsing_arg(char *line)
 	token = NULL;
 	if (!tokens)
 	{
-		fprintf(stderr, "hsh: No such file or directory\n");
 		free(tokens);
 	}
 	token = strtok(line, "  \n");
@@ -53,15 +55,12 @@ char **parsing_arg(char *line)
 		pos++;
 		if (pos >=  bufsize)
 		{
-			bufsize += BUFSIZE;
-			tokens = realloc(tokens, bufsize * sizeof(char *));
 			if (!tokens)
 			{
-				fprintf(stderr, "hsh: Allocation error\n");
 				free(tokens);
 			}
 		}
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \n");
 	}
 	tokens[pos] = NULL;
 	return (tokens);
@@ -74,22 +73,18 @@ char **parsing_arg(char *line)
  */
 char *read_line(void)
 {
-	char prompt[3] = "$ ";
 	char *line = NULL;
 	size_t bufsize = 0;
 	ssize_t characters = 0;
-	int i = 0;
 
-	while (prompt[i] != '\0')
-	{
-		_putchar(prompt[i]);
-		i++;
-	}
 	characters = getline(&line, &bufsize, stdin);
+
+	if (characters == 1)
+
 
 	if (characters == -1)
 	{
-		perror("hsh: No such file or directory\n");
+		perror("hsh");
 		free(line);
 		exit(-1);
 	}
