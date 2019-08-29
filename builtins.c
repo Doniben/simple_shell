@@ -22,10 +22,12 @@ void _enviro(void)
 
 /**
  * salto_linea - function for the use of signal
- *
+ * @n: void parameter
  * Return: void
  */
-void salto_linea(void)
+void salto_linea(int n)
 {
+	(void)n;
+
 	write(STDOUT_FILENO, "\n", 1);
 }

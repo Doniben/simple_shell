@@ -9,17 +9,17 @@ int main(void)
 {
 	char w_env[4] = "env";
 	char w_exit[5] = "exit";
+	char w_slash[1] = "/";
 	char *line = NULL;
 	char **arg = NULL;
+	char **path = NULL;
 	int flag = 0;
-	int exec = 0;
 
 	signal(SIGINT, salto_linea);
 
 	while (flag != EOF)
 	{
 		line = read_line();
-
 		arg = parsing_arg(line);
 		if (_strcmp(w_env, arg[0]) == 0)
 		{
@@ -35,9 +35,14 @@ int main(void)
 			exit(0);
 			continue;
 		}
-		exec = exec_process(arg, line);
-		if (exec == -1)
-			continue;
+		else if (_strcmp(w_slash, arg[0]) == 0)
+		{
+			exec_process(arg, line);
+			free(line);
+			free(arg);
+		}
+		path = path_av(arg);
+		exec_process(path, line);
 		free(line);
 		free(arg);
 	}

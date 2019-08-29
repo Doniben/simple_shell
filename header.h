@@ -23,10 +23,9 @@ char *read_line(void);
 char **path_av(char **arg);
 char **ph_to_dp(char *token_cp);
 int number_of_dir(char *ph);
-char **conc_slash(char **p);
 
 void _enviro(void);
-void salto_linea(void);
+void salto_linea(int n);
 void _ext(void);
 
 char *_strdup(char *str);
