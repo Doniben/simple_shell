@@ -1,0 +1,104 @@
+.\ Contact 956@holbertonschool.com or 921@holbertonschool.com to correct errors or typos.
+.TH Simple_Shell 1 "AUG 27 2019" "Holberton School V0.1" "Manpage Simple Shell"
+.SH NAME
+.B Simple Shell \- Command line interpreter.
+.SH SYNOPSIS
+.I
+.I COMMAND [ARGUMENT] ...
+.SH DESCRIPTION
+ This simple shell is a command-line interpreter that provides an interface who takes, from the standard input,functions by commmands to execute them based on the options described\
+ below.
+.SH OPTIONS
+This simple shell tokenizes, shearches in the PATH, has built-ins commands and uses an environment to execute these commands:
+.PP FORMAT
+.PP
+.B /bin/ls
+- lists contents of the current directory.
+.PP
+.B /bin/ls -l
+- Lists contents of the current directory in long format.
+.PP
+.B /bin/ls -l -a
+- Lists all the contents of the current directory in long format, even those with . and ..
+.PP
+.B /bin/ls -la
+- Makes the same as /bin/ls -l -a
+.PP
+.B /bin/pwd
+- Prints the name of the current working directory
+.PP
+.B ls
+- lists contents of the current directory.
+.PP
+.B ls -l
+- Lists contents of the current directory in long format.
+.PP
+.B ls -l -a
+- Lists all the contents of the current directory in long format, even those with . and ..
+.PP
+.B ls -la
+- Makes the same as ls -l -a
+.PP
+.B pwd
+- Prints the name of the current working directory
+.PP
+.B env
+- Gets and prints the full environment.
+.PP
+.B exit
+- Exit from the shell
+.PP
+.B cat
+- Concatenate and print files writing them to the standard output.
+.PP
+.B cat
+- Concatenate and print files writing them to the standard output.
+
+.SH INTERACTIVE MODE
+
+.LP
+
+  Example:
+
+ $ ./hsh
+ ($) /bin/ls
+ hsh main.c shell.c
+ ($)
+ ($) exit
+ $
+
+.SH NON-INTERACTIVE MODE
+
+.LP
+
+  Example:
+
+ $ echo "/bin/ls" | ./hsh
+ hsh main.c shell.c test_ls_2
+ $
+ $ cat test_ls_2
+ /bin/ls
+ /bin/ls
+ $
+ $ cat test_ls_2 | ./hsh
+ hsh main.c shell.c test_ls_2
+ hsh main.c shell.c test_ls_2
+ $
+
+.SH RETURN VALUE
+On a successfull execution, the simple shell is going to return as well the behavior of each of the commands listed above. On an unsucces execution it is goint to print an error me\
+sage.
+.SH EXAMPLE
+.PP
+.B $ /bin/ls
+.P
+file_1 file_2 file_3 file_4 file_5 file_6 file_7 file_8
+.P
+.B $
+.SH SEE ALSO OTHER COMMANDS
+.I chgrp, chmod, chown, cp, date, echo, grep, kill, less, mkdir, more, mv, nano, open, rm, su, touch, uname, which.
+.SH BUGS
+Soon bugs will appear here.
+.SH AUTHORS
+Nicolas Moran (956@holbertonschool.com) \-
+Doniben JImenez (921@holbertonschool.com)
